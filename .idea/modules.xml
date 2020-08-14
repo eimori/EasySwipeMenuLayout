@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EasySwipeMenuLayout.iml" filepath="$PROJECT_DIR$/EasySwipeMenuLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SwipMenu.iml" filepath="$PROJECT_DIR$/.idea/modules/SwipMenu.iml" group="SwipMenu" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SwipMenu-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SwipMenu-app.iml" group="SwipMenu/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easyswipemenulibrary/SwipMenu-easyswipemenulibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/easyswipemenulibrary/SwipMenu-easyswipemenulibrary.iml" group="SwipMenu/easyswipemenulibrary" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/easyswipemenulibrary/easyswipemenulibrary.iml" filepath="$PROJECT_DIR$/easyswipemenulibrary/easyswipemenulibrary.iml" />
     </modules>

@@ -6,19 +6,20 @@
 
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     /**
     * Created by guanaj on .
     */
 
     <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
         android:id="@+id/es"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentView="@+id/content"
-        app:leftMenuView="@+id/left"
-        app:rightMenuView="@+id/right">
+        app:rightMenuView="@+id/right"
+        android:layout_margin="@dimen/dp_10"
+        >
 
         <LinearLayout
             android:id="@+id/left"
@@ -42,9 +43,9 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#cccccc"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"

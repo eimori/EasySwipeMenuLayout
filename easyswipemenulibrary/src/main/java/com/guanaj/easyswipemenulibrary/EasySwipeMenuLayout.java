@@ -3,6 +3,8 @@ package com.guanaj.easyswipemenulibrary;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -30,6 +32,9 @@ public class EasySwipeMenuLayout extends ViewGroup {
     private View mLeftView;
     private View mRightView;
     private View mContentView;
+    private int leftBackground;
+    private int contentBackground;
+    private int rightBackground;
     private MarginLayoutParams mContentViewLp;
     private boolean isSwipeing;
     private PointF mLastP;
@@ -43,6 +48,7 @@ public class EasySwipeMenuLayout extends ViewGroup {
     private static State mStateCache;
     private float distanceX;
     private float finalyDistanceX;
+    private Context mContext;
 
     public EasySwipeMenuLayout(Context context) {
         this(context, null);
@@ -66,6 +72,7 @@ public class EasySwipeMenuLayout extends ViewGroup {
      * @param defStyleAttr
      */
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+        mContext = context;
         //创建辅助对象
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mScaledTouchSlop = viewConfiguration.getScaledTouchSlop();
@@ -79,10 +86,13 @@ public class EasySwipeMenuLayout extends ViewGroup {
                 int attr = typedArray.getIndex(i);
                 if (attr == R.styleable.EasySwipeMenuLayout_leftMenuView) {
                     mLeftViewResID = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_leftMenuView, -1);
+                    leftBackground = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_leftBackground, -1);
                 } else if (attr == R.styleable.EasySwipeMenuLayout_rightMenuView) {
                     mRightViewResID = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_rightMenuView, -1);
+                    rightBackground = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_rightBackground, -1);
                 } else if (attr == R.styleable.EasySwipeMenuLayout_contentView) {
                     mContentViewResID = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_contentView, -1);
+                    contentBackground = typedArray.getResourceId(R.styleable.EasySwipeMenuLayout_contentBackground, -1);
                 } else if (attr == R.styleable.EasySwipeMenuLayout_canLeftSwipe) {
                     mCanLeftSwipe = typedArray.getBoolean(R.styleable.EasySwipeMenuLayout_canLeftSwipe, true);
                 } else if (attr == R.styleable.EasySwipeMenuLayout_canRightSwipe) {
@@ -210,20 +220,38 @@ public class EasySwipeMenuLayout extends ViewGroup {
         }
         //布局contentView
         int cRight = 0;
+        final int sdk = android.os.Build.VERSION.SDK_INT;
+
         if (mContentView != null) {
             mContentViewLp = (MarginLayoutParams) mContentView.getLayoutParams();
             int cTop = top + mContentViewLp.topMargin;
             int cLeft = left + mContentViewLp.leftMargin;
             cRight = left + mContentViewLp.leftMargin + mContentView.getMeasuredWidth();
             int cBottom = cTop + mContentView.getMeasuredHeight();
+
+            if (contentBackground != -1) {
+                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    mContentView.setBackgroundDrawable(getResources().getDrawable(contentBackground));
+                } else {
+                    mContentView.setBackground(getResources().getDrawable(contentBackground));
+                }
+            }
             mContentView.layout(cLeft, cTop, cRight, cBottom);
         }
+
         if (mLeftView != null) {
             MarginLayoutParams leftViewLp = (MarginLayoutParams) mLeftView.getLayoutParams();
             int lTop = top + leftViewLp.topMargin;
             int lLeft = 0 - mLeftView.getMeasuredWidth() + leftViewLp.leftMargin + leftViewLp.rightMargin;
             int lRight = 0 - leftViewLp.rightMargin;
             int lBottom = lTop + mLeftView.getMeasuredHeight();
+            if (leftBackground != -1) {
+                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    mLeftView.setBackgroundDrawable(getResources().getDrawable(leftBackground));
+                } else {
+                    mLeftView.setBackground(getResources().getDrawable(leftBackground));
+                }
+            }
             mLeftView.layout(lLeft, lTop, lRight, lBottom);
         }
         if (mRightView != null) {
@@ -232,6 +260,13 @@ public class EasySwipeMenuLayout extends ViewGroup {
             int lLeft = mContentView.getRight() + mContentViewLp.rightMargin + rightViewLp.leftMargin;
             int lRight = lLeft + mRightView.getMeasuredWidth();
             int lBottom = lTop + mRightView.getMeasuredHeight();
+            if (rightBackground != -1) {
+                if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    mRightView.setBackgroundDrawable(getResources().getDrawable(rightBackground));
+                } else {
+                    mRightView.setBackground(getResources().getDrawable(rightBackground));
+                }
+            }
             mRightView.layout(lLeft, lTop, lRight, lBottom);
         }
 

@@ -48,7 +48,7 @@ public class EasySwipeMenuLayout extends ViewGroup {
     private static State mStateCache;
     private float distanceX;
     private float finalyDistanceX;
-    private Context mContext;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
 
     public EasySwipeMenuLayout(Context context) {
         this(context, null);
@@ -72,7 +72,6 @@ public class EasySwipeMenuLayout extends ViewGroup {
      * @param defStyleAttr
      */
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        mContext = context;
         //创建辅助对象
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mScaledTouchSlop = viewConfiguration.getScaledTouchSlop();
@@ -220,7 +219,6 @@ public class EasySwipeMenuLayout extends ViewGroup {
         }
         //布局contentView
         int cRight = 0;
-        final int sdk = android.os.Build.VERSION.SDK_INT;
 
         if (mContentView != null) {
             mContentViewLp = (MarginLayoutParams) mContentView.getLayoutParams();
@@ -562,5 +560,28 @@ public class EasySwipeMenuLayout extends ViewGroup {
 
     }
 
+    public void setContentBackground(int resId) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            mContentView.setBackgroundDrawable(getResources().getDrawable(resId));
+        } else {
+            mContentView.setBackground(getResources().getDrawable(resId));
+        }
+    }
+
+    public void setLeftBackground(int resId) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            mLeftView.setBackgroundDrawable(getResources().getDrawable(resId));
+        } else {
+            mLeftView.setBackground(getResources().getDrawable(resId));
+        }
+    }
+
+    public void setRightBackground(int resId) {
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            mRightView.setBackgroundDrawable(getResources().getDrawable(resId));
+        } else {
+            mRightView.setBackground(getResources().getDrawable(resId));
+        }
+    }
 
 }

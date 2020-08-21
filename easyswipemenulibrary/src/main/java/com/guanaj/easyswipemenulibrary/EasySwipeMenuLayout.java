@@ -206,14 +206,17 @@ public class EasySwipeMenuLayout extends ViewGroup {
                 // Log.i(TAG, "找到左边按钮view");
                 mLeftView = child;
                 mLeftView.setClickable(true);
+                setLeftView(mLeftView);
             } else if (mRightView == null && child.getId() == mRightViewResID) {
                 // Log.i(TAG, "找到右边按钮view");
                 mRightView = child;
                 mRightView.setClickable(true);
+                setRightView(mRightView);
             } else if (mContentView == null && child.getId() == mContentViewResID) {
                 // Log.i(TAG, "找到内容View");
                 mContentView = child;
                 mContentView.setClickable(true);
+                setContentView(mContentView);
             }
 
         }
@@ -562,26 +565,50 @@ public class EasySwipeMenuLayout extends ViewGroup {
 
     public void setContentBackground(int resId) {
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            mContentView.setBackgroundDrawable(getResources().getDrawable(resId));
+            getContentView().setBackgroundDrawable(getResources().getDrawable(resId));
         } else {
-            mContentView.setBackground(getResources().getDrawable(resId));
+            getContentView().setBackground(getResources().getDrawable(resId));
         }
     }
 
     public void setLeftBackground(int resId) {
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            mLeftView.setBackgroundDrawable(getResources().getDrawable(resId));
+            getLeftView().setBackgroundDrawable(getResources().getDrawable(resId));
         } else {
-            mLeftView.setBackground(getResources().getDrawable(resId));
+            getLeftView().setBackground(getResources().getDrawable(resId));
         }
     }
 
     public void setRightBackground(int resId) {
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            mRightView.setBackgroundDrawable(getResources().getDrawable(resId));
+            getRightView().setBackgroundDrawable(getResources().getDrawable(resId));
         } else {
-            mRightView.setBackground(getResources().getDrawable(resId));
+            getRightView().setBackground(getResources().getDrawable(resId));
         }
+    }
+
+    private void setContentView(View resViewId) {
+        this.mContentView = resViewId;
+    }
+
+    private View getContentView() {
+        return this.mContentView;
+    }
+
+    private void setLeftView(View resViewId) {
+        this.mLeftView = resViewId;
+    }
+
+    private View getLeftView() {
+        return this.mLeftView;
+    }
+
+    private void setRightView(View resViewId) {
+        this.mRightView = resViewId;
+    }
+
+    private View getRightView() {
+        return this.mRightView;
     }
 
 }
